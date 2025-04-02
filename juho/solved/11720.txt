@@ -1,0 +1,39 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
+
+    public void solution() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        //br = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/src/input.txt")));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int n = Integer.parseInt(br.readLine());
+
+        st = new StringTokenizer(br.readLine());
+
+        String sNum = st.nextToken();
+
+        char[] cNum = sNum.toCharArray();
+
+        int result = 0;
+
+        for(int i = 0; i < cNum.length; i++) {
+            result += cNum[i] - '0';
+        }
+
+        bw.write(String.valueOf(result));
+
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
