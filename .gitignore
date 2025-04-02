@@ -7,7 +7,8 @@ baekjoon.iml
 input.txt
 output.txt
 .idea/
-
+sungmin/
+.gitignore
 
 ### Eclipse ###
 .apt_generated
