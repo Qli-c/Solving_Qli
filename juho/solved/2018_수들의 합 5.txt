@@ -1,0 +1,49 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
+
+    public void solution() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        //br = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/src/input.txt")));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        st = new StringTokenizer(br.readLine());
+
+        int n = Integer.parseInt(st.nextToken());
+        int answer = 1;
+        int start = 1;
+        int end = 1;
+        int sum = 1;
+
+        while(end != n){
+            if (sum == n) {
+                answer++;
+                end++;
+                sum = sum + end;
+            }
+
+            else if(sum > n){
+                sum = sum - start;
+                start++;
+            }
+
+            else {
+                end++;
+                sum = sum + end;
+            }
+        }
+        bw.write(String.valueOf(answer));
+
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
