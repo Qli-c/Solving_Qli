@@ -1,0 +1,49 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
+
+    public long power(long a, long b, long c) {
+        long result = 1;
+        a = a % c;
+        while (b > 0)
+        {
+            if (b % 2 == 1)
+            {
+                result = (result * a) % c;
+            }
+            a = (a * a) % c;
+            b = b / 2;
+        }
+        return result;
+    }
+
+    public void solution() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        //br = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/src/input.txt")));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        st = new StringTokenizer(br.readLine());
+
+        long a = Integer.parseInt(st.nextToken());
+        long b = Integer.parseInt(st.nextToken());
+        long c = Integer.parseInt(st.nextToken());
+        long result = 0;
+
+        result = power(a,b,c);
+
+        bw.write(String.valueOf(result));
+
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
