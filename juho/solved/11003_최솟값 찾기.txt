@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
+
+    public void solution() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        //br = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/src/input.txt")));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        st = new StringTokenizer(br.readLine());
+
+        Deque<Node> mydeque = new LinkedList<>();
+
+        int n = Integer.parseInt(st.nextToken());
+        int l = Integer.parseInt(st.nextToken());
+
+        st = new StringTokenizer(br.readLine());
+
+        for(int i = 0; i < n; i++)
+        {
+            int curr = Integer.parseInt(st.nextToken());
+
+            while (!mydeque.isEmpty() && mydeque.getLast().value > curr) {
+                mydeque.removeLast();
+            }
+            mydeque.addLast(new Node(curr, i));
+
+            if (mydeque.getFirst().index <= i - l) {
+                mydeque.removeFirst();
+            }
+            bw.write(mydeque.getFirst().value + " ");
+        }
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+
+    static class Node {
+        public int value;
+        public int index;
+
+        Node(int value, int index) {
+            this.value = value;
+            this.index = index;
+        }
+    }
+}
