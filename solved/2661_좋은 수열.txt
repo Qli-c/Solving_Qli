@@ -1,0 +1,63 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+
+
+    static int n;
+
+    static boolean check(String s)
+    {
+        int length = s.length() / 2;
+
+        for(int i = 1; i <= length; i++)
+        {
+            if(s.substring(s.length() - i).equals(s.substring(s.length() - 2 * i, s.length() - i)))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static void DFS(String s)
+    {
+        if(s.length() == n)
+        {
+            System.out.println(s);
+            System.exit(0 );
+        }
+        else
+        {
+            for(int i = 1; i <= 3; i++)
+            {
+                if(check(s + i))
+                {
+                    DFS(s + i);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
+
+    public void solution() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        //br = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/src/input.txt")));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+
+        DFS("");
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}

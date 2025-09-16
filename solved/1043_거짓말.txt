@@ -1,0 +1,111 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+
+    static int fact[];
+    static int parent[];
+    static ArrayList<Integer> party[];
+    static int result = 0;
+
+    static void union(int a, int b)
+    {
+        a = find(a);
+        b = find(b);
+        if(a != b)
+        {
+            parent[b] = a;
+        }
+    }
+
+    static int find(int a)
+    {
+        if(a == parent[a])
+        {
+            return a;
+        }
+        else
+        {
+            return parent[a] = find(parent[a]);
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
+
+    public void solution() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        //br = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/src/input.txt")));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+
+        st = new StringTokenizer(br.readLine());
+        int t = Integer.parseInt(st.nextToken());
+        fact = new int[t];
+
+        for(int i = 0; i < t; i++)
+        {
+            fact[i] = Integer.parseInt(st.nextToken());
+        }
+
+        party = new ArrayList[m];
+        for(int i = 0; i < m; i++)
+        {
+            party[i] = new ArrayList<Integer>();
+            st = new StringTokenizer(br.readLine());
+            int party_size = Integer.parseInt(st.nextToken());
+            for(int j = 0; j < party_size; j++)
+            {
+                party[i].add(Integer.parseInt(st.nextToken()));
+            }
+        }
+
+        parent = new int[n + 1];
+
+        for(int i = 1; i <= n; i++)
+        {
+            parent[i] = i;
+        }
+
+        for(int i = 0; i < m; i++)
+        {
+            int first = party[i].get(0);
+            for(int j = 1; j < party[i].size(); j++)
+            {
+                union(first, party[i].get(j));
+            }
+        }
+
+        for(int i = 0; i < m; i++)
+        {
+            boolean possible = true;
+            int first = party[i].get(0);
+            for(int j = 0; j < fact.length; j++)
+            {
+                if (find(first) == find(fact[j]))
+                {
+                    possible = false;
+                    break;
+                }
+            }
+
+            if(possible)
+            {
+                result++;
+            }
+        }
+
+        System.out.println(result);
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}

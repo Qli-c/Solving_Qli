@@ -1,0 +1,51 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
+
+
+    public void solution() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        //br = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/src/input.txt")));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        String[] sub = br.readLine().split("-");
+        int result = 0;
+
+        for(int i = 0; i < sub.length; i++)
+        {
+            int temp = 0;
+            String[] add = sub[i].split("\\+");
+
+            for(int j = 0; j < add.length; j++)
+            {
+                temp += Integer.parseInt(add[j]);
+            }
+
+            if(i == 0)
+            {
+                result += temp;
+            }
+            else
+            {
+                result -= temp;
+            }
+
+        }
+
+
+        bw.write(String.valueOf(result));
+
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}

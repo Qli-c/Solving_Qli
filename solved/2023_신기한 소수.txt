@@ -1,0 +1,67 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+
+
+    static void DFS(int num, int digit, int n)
+    {
+        if(digit == n)
+        {
+            if(isPrime(num))
+            {
+                System.out.println(num);
+            }
+            return;
+        }
+
+        for(int i = 1; i < 10; i++)
+        {
+            if(i % 2 == 0)
+            {
+                continue;
+            }
+            if(isPrime(num * 10 + i))
+            {
+                DFS(num * 10 + i, digit + 1, n);
+            }
+        }
+    }
+
+    static boolean isPrime(int num)
+    {
+        for(int i = 2; i <= num/2; i++)
+        {
+            if(num % i == 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
+
+    public void solution() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        //br = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/src/input.txt")));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+
+        DFS(2,1, n);
+        DFS(3,1, n);
+        DFS(5,1, n);
+        DFS(7,1, n);
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}

@@ -1,0 +1,86 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
+
+    public int lower (int[] arr, int target)
+    {
+        int start = 0;
+        int end = arr.length;
+
+        while(start < end)
+        {
+            int mid = (start + end) / 2;
+            if(arr[mid] >= target)
+            {
+                end = mid;
+            }
+            else
+            {
+                start = mid + 1;
+            }
+        }
+        return start;
+    }
+
+    public int upper (int[] arr, int target)
+    {
+        int start = 0;
+        int end = arr.length;
+
+        while(start < end)
+        {
+            int mid = (start + end) / 2;
+            if(arr[mid] > target)
+            {
+                end = mid;
+            }
+            else
+            {
+                start = mid + 1;
+            }
+        }
+        return start;
+    }
+
+    public void solution() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        //br = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/src/input.txt")));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+
+        int arr[] = new int[n];
+
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0; i < n; i++)
+        {
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
+
+        Arrays.sort(arr);
+
+        st = new StringTokenizer(br.readLine());
+        int m = Integer.parseInt(st.nextToken());
+
+        st = new StringTokenizer(br.readLine());
+        for(int i = 0; i < m; i++)
+        {
+            int target = Integer.parseInt(st.nextToken());
+            int answer = upper(arr, target) - lower(arr, target);
+            bw.write(answer + " ");
+        }
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}

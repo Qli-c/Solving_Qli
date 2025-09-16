@@ -1,0 +1,92 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+
+    static int[][] arr;
+    static boolean visited[][];
+    static int[] dx = {0, 1, 0, -1};
+    static int[] dy = {1, 0, -1, 0};
+    static int m, n;
+    static int count = 0;
+
+    static void BFS(int x, int y)
+    {
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[] {x, y});
+        visited[x][y] = true;
+
+        while(!queue.isEmpty())
+        {
+            int now[] = queue.poll();
+
+            for(int i = 0; i < 4; i++)
+            {
+                int nx = now[0] + dx[i];
+                int ny = now[1] + dy[i];
+                if(nx >= 0 && ny >= 0 && nx < m && ny < n)
+                {
+                    if(arr[nx][ny] != 0 && !visited[nx][ny])
+                    {
+                        visited[nx][ny] = true;
+                        queue.add(new int[] {nx, ny});
+                    }
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
+
+    public void solution() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        //br = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/src/input.txt")));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        st = new StringTokenizer(br.readLine());
+        int t = Integer.parseInt(st.nextToken());
+
+        for(int i = 0; i < t; i++)
+        {
+            count = 0;
+            st = new StringTokenizer(br.readLine());
+            m = Integer.parseInt(st.nextToken());
+            n = Integer.parseInt(st.nextToken());
+            int k = Integer.parseInt(st.nextToken());
+
+            arr = new int[m][n];
+            visited = new boolean[m][n];
+
+            for(int j = 0; j < k; j++)
+            {
+                st = new StringTokenizer(br.readLine());
+                int x = Integer.parseInt(st.nextToken());
+                int y = Integer.parseInt(st.nextToken());
+
+                arr[x][y] = 1;
+            }
+
+            for(int x = 0; x < m; x++)
+            {
+                for(int y = 0; y < n; y++)
+                {
+                    if(arr[x][y] == 1 && visited[x][y] != true)
+                    {
+                        BFS(x, y);
+                        count++;
+                    }
+                }
+            }
+            System.out.println(count);
+        }
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}

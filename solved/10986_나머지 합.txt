@@ -1,0 +1,53 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
+
+    public void solution() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        //br = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/src/input.txt")));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        st = new StringTokenizer(br.readLine());
+
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        long result = 0;
+
+        //int arr[] = new int[n];
+        long sum[] = new long[n];
+        long ans[] = new long[m];
+
+        st = new StringTokenizer(br.readLine());
+        sum[0] = Integer.parseInt(st.nextToken());
+
+        for (int i = 1; i < n; i++) {
+            sum[i] = sum[i-1] + Integer.parseInt(st.nextToken());
+        }
+
+        for(int i = 0; i < n; i++) {
+            int remainder = (int) (sum[i] % m);
+            if (remainder == 0) result++;
+            ans[remainder]++;
+        }
+
+        for (int i = 0; i < m; i++)
+        {
+            if (ans[i] > 1){
+                result = result + (ans[i] * (ans[i] - 1) / 2);
+            }
+        }
+        bw.write(String.valueOf(result));
+
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}

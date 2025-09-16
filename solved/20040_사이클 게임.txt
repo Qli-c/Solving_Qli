@@ -1,0 +1,78 @@
+import javax.swing.plaf.metal.MetalIconFactory;
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+    static int parent[];
+    static ArrayList<Integer> arr[];
+    static int count = 0;
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
+
+    public int find(int a)
+    {
+        if(a == parent[a])
+        {
+            return a;
+        }
+        else
+        {
+            return parent[a] = find(parent[a]);
+        }
+    }
+
+    public void union(int a, int b)
+    {
+        a = find(a);
+        b = find(b);
+
+        if(a != b)
+        {
+            parent[b] = a;
+        }
+        else
+        {
+            System.out.println(count);
+            System.exit(0);
+        }
+    }
+
+    public void solution() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        //br = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/src/input.txt")));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+
+        parent = new int[n];
+        arr = new ArrayList[n];
+        for(int i = 0; i < n; i++)
+        {
+            arr[i] = new ArrayList<>();
+            parent[i] = i;
+        }
+
+        for(int i = 0; i < m; i++)
+        {
+            count++;
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+
+            union(s, e);
+        }
+
+        System.out.println("0");
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
