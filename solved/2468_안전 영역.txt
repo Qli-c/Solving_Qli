@@ -1,0 +1,86 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static StringTokenizer st;
+
+    static int arr[][];
+    static boolean visited[][];
+    static int dx[] = {0, 1, 0, -1};
+    static int dy[] = {1, 0, -1, 0};
+    static int n;
+
+    public void DFS(int x, int y, int level)
+    {
+        if(visited[x][y])
+        {
+            return;
+        }
+
+        visited[x][y] = true;
+        for(int i = 0; i < 4; i++)
+        {
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+
+            if(nx >= 0 && ny >= 0 && nx < n && ny < n && !visited[nx][ny] && arr[nx][ny] > level)
+            {
+                DFS(nx, ny, level);
+            }
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        new Main().solution();
+    }
+
+    public void solution() throws Exception {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        //br = new BufferedReader(new InputStreamReader(new FileInputStream("src/main/java/src/input.txt")));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+
+        arr = new int[n][n];
+        int max = 0;
+
+        for(int i = 0; i < n; i++)
+        {
+            st = new StringTokenizer(br.readLine());
+            for(int j = 0; j < n; j++)
+            {
+                arr[i][j] = Integer.parseInt(st.nextToken());
+                if(arr[i][j] > max)
+                {
+                    max = arr[i][j];
+                }
+            }
+        }
+        int answer = 1;
+
+        for(int i = 0; i < max; i++) {
+            visited = new boolean[n][n];
+            int count = 0;
+            for (int j = 0; j < n; j++) {
+                for (int k = 0; k < n; k++) {
+                    if (!visited[j][k] && arr[j][k] > i) {
+                        DFS(j, k, i);
+                        count++;
+                    }
+                }
+            }
+            if (count > answer) {
+                answer = count;
+            }
+        }
+
+        System.out.println(answer);
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
