@@ -7,7 +7,6 @@ public class Main {
     static BufferedWriter bw;
     static StringTokenizer st;
 
-
     public static void main(String[] args) throws Exception {
         new Main().solution();
     }
@@ -20,7 +19,28 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
 
+        Stack<int[]> stack = new Stack<>();
 
+        st = new StringTokenizer(br.readLine());
+
+        for(int i = 1; i <= n; i++)
+        {
+            int now = Integer.parseInt(st.nextToken());
+            while(!stack.isEmpty())
+            {
+                if(stack.peek()[1] >= now)
+                {
+                    System.out.print(stack.peek()[0] + " ");
+                    break;
+                }
+                stack.pop();
+            }
+            if(stack.isEmpty())
+            {
+                System.out.print("0 ");
+            }
+            stack.push(new int[] {i, now});
+        }
 
         bw.flush();
         bw.close();
